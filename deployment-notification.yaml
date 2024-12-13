@@ -18,7 +18,7 @@ spec:
         app: notification
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-notification:latest
+      - image: onikaze/sample-app-k8s-notification:9
         name: notification
         resources: {}
 status: {}
