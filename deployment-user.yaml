@@ -18,7 +18,7 @@ spec:
         app: user
     spec:
       containers:
-      - image: onikaze/sample-app-docker-user:1
+      - image: onikaze/sample-app-k8s-user:test
         name: user
         resources: {}
 status: {}
