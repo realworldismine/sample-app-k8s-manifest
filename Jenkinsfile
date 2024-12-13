@@ -17,7 +17,7 @@ pipeline {
                             sh "git config user.name realworldismine"
 
                             sh "cat deployment-user.yaml"
-                            sh "sed -i 's+onikaze/sample-app-k8s-notifiuseration/test.*+onikaze/sample-app-k8s-user:${DOCKERTAG}+g' deployment-user.yaml"
+                            sh "sed -i 's+onikaze/sample-app-k8s-user/test.*+onikaze/sample-app-k8s-user:${DOCKERTAG}+g' deployment-user.yaml"
                             sh "cat deployment-user.yaml"
 
                             sh "cat deployment-post.yaml"

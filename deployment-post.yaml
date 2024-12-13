@@ -18,7 +18,7 @@ spec:
         app: post
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-post:test
+      - image: onikaze/sample-app-k8s-post/test
         name: post
         resources: {}
 status: {}
