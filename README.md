@@ -1,4 +1,5 @@
 # sample-app-k8s-code
 ## Summary
-- Build docker images and push to the docker hub
-- Trigger updatemanifestjob in Jenkins
+- Update manifest files
+- It is triggered by the buildimage job in Jenkins
+- It is executed by ArgoCD or other GitOps tools
