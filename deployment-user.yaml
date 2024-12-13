@@ -18,7 +18,7 @@ spec:
         app: user
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-user:10
+      - image: onikaze/sample-app-k8s-user:latest
         name: user
         resources: {}
 status: {}
