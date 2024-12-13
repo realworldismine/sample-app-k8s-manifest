@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: notification
+  name: notification
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: notification
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: notification
+    spec:
+      containers:
+      - image: onikaze/sample-app-docker-notification:1
+        name: notification
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+  labels:
+    app: notification-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5003
+  selector:
+    app: notification

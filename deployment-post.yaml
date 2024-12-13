@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: post
+  name: post
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: post
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: post
+    spec:
+      containers:
+      - image: onikaze/sample-app-docker-post:1
+        name: post
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service
+  labels:
+    app: post-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5002
+  selector:
+    app: post
