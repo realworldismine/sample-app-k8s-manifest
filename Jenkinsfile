@@ -17,15 +17,15 @@ pipeline {
                             sh "git config user.name realworldismine"
 
                             sh "cat deployment-user.yaml"
-                            sh "sed -i 's+onikaze/sample-app-k8s-user/test.*+onikaze/sample-app-k8s-user:${DOCKERTAG}+g' deployment-user.yaml"
+                            sh "sed -i 's+onikaze/sample-app-k8s-user:.*+onikaze/sample-app-k8s-user:${DOCKERTAG}+g' deployment-user.yaml"
                             sh "cat deployment-user.yaml"
 
                             sh "cat deployment-post.yaml"
-                            sh "sed -i 's+onikaze/sample-app-k8s-post/test.*+onikaze/sample-app-k8s-post:${DOCKERTAG}+g' deployment-post.yaml"
+                            sh "sed -i 's+onikaze/sample-app-k8s-post:.*+onikaze/sample-app-k8s-post:${DOCKERTAG}+g' deployment-post.yaml"
                             sh "cat deployment-post.yaml"
 
                             sh "cat deployment-notification.yaml"
-                            sh "sed -i 's+onikaze/sample-app-k8s-notification/test.*+onikaze/sample-app-k8s-notification:${DOCKERTAG}+g' deployment-notification.yaml"
+                            sh "sed -i 's+onikaze/sample-app-k8s-notification:.*+onikaze/sample-app-k8s-notification:${DOCKERTAG}+g' deployment-notification.yaml"
                             sh "cat deployment-notification.yaml"
 
                             sh "git add ."
