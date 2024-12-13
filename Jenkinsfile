@@ -1,11 +1,13 @@
 pipeline {
     agent any
 
-    stage('Test') {
-        steps {
-            echo "Hello workd"
+    stages {
+        stage('Test') {
+            steps {
+                echo "Hello workd"
+            }
         }
-    }    
+    }
     // stage('Update GIT') {
     //     script {
     //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
