@@ -18,7 +18,7 @@ spec:
         app: user
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-user:14
+      - image: onikaze/sample-app-k8s-user:15
         name: user
         resources: {}
         volumeMounts:
