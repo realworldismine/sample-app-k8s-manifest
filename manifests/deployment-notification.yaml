@@ -24,8 +24,6 @@ spec:
         envFrom:
         - secretRef:
             name: smtp-info
-        - secretRef:
-            name: mailgun-api-key
         volumeMounts:
           - name: app-storage
             mountPath: /app/log
