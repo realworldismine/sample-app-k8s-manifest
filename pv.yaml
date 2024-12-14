@@ -1,0 +1,123 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: app-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-user-pv
+  labels:
+    name: app-user-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: app-storage
+  local:
+    path: /root/app-storage/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - dev-masternode
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-user-pvc
+  namespace: app
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      name: app-user-pv
+  storageClassName: app-storage
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-post-pv
+  labels:
+    name: app-post-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: app-storage
+  local:
+    path: /root/app-storage/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - dev-masternode
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-post-pvc
+  namespace: app
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      name: app-post-pv
+  storageClassName: app-storage
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-notification-pv
+  labels:
+    name: app-notification-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: app-storage
+  local:
+    path: /root/app-storage/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - dev-masternode
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-notification-pvc
+  namespace: app
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      name: app-notification-pvc
+  storageClassName: app-storage

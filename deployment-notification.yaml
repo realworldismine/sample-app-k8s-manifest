@@ -21,6 +21,17 @@ spec:
       - image: onikaze/sample-app-k8s-notification:latest
         name: notification
         resources: {}
+        volumeMounts:
+          - name: app-storage
+            mountPath: /app/log
+            subPath: log
+          - name: app-storage
+            mountPath: /app/db
+            subPath: db
+      volumes:
+        - name: app-storage
+          persistentVolumeClaim:
+            claimName: app-notification-pvc
 status: {}
 ---
 apiVersion: v1

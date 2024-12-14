@@ -21,6 +21,17 @@ spec:
       - image: onikaze/sample-app-k8s-post:latest
         name: post
         resources: {}
+        volumeMounts:
+          - name: app-storage
+            mountPath: /app/log
+            subPath: log
+          - name: app-storage
+            mountPath: /app/db
+            subPath: db
+      volumes:
+        - name: app-storage
+          persistentVolumeClaim:
+            claimName: app-post-pvc
 status: {}
 ---
 apiVersion: v1

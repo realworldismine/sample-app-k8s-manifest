@@ -21,6 +21,17 @@ spec:
       - image: onikaze/sample-app-k8s-user:latest
         name: user
         resources: {}
+        volumeMounts:
+          - name: app-storage
+            mountPath: /app/log
+            subPath: log
+          - name: app-storage
+            mountPath: /app/db
+            subPath: db
+      volumes:
+        - name: app-storage
+          persistentVolumeClaim:
+            claimName: app-user-pvc
 status: {}
 ---
 apiVersion: v1
@@ -36,3 +47,4 @@ spec:
     targetPort: 5001
   selector:
     app: user
+
