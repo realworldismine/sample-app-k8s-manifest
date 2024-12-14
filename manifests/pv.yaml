@@ -13,12 +13,12 @@ metadata:
     name: app-user-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
   storageClassName: app-storage
   local:
-    path: /root/app-storage/
+    path: /data1/app-storage/
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -57,7 +57,7 @@ spec:
     - ReadWriteMany
   storageClassName: app-storage
   local:
-    path: /root/app-storage/
+    path: /data1/app-storage/
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -91,12 +91,12 @@ metadata:
     name: app-notification-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
   storageClassName: app-storage
   local:
-    path: /root/app-storage/
+    path: /data1/app-storage/
   nodeAffinity:
     required:
       nodeSelectorTerms:
