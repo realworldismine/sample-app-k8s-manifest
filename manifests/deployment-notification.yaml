@@ -18,7 +18,7 @@ spec:
         app: notification
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-notification:16
+      - image: onikaze/sample-app-k8s-notification:17
         name: notification
         resources: {}
         envFrom:
