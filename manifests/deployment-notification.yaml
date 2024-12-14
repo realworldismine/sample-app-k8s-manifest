@@ -41,9 +41,10 @@ metadata:
   labels:
     app: notification-service
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - port: 80
     targetPort: 5003
+    nodePort: 30303
   selector:
     app: notification
