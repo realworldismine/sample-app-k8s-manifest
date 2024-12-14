@@ -41,7 +41,7 @@ metadata:
   labels:
     app: user-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 5001

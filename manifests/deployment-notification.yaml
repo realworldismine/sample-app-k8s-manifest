@@ -41,7 +41,7 @@ metadata:
   labels:
     app: notification-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 5003

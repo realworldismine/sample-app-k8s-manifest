@@ -16,6 +16,7 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: app-storage
   local:
     path: /data1/app-storage/
@@ -33,6 +34,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: app-user-pvc
   namespace: app
+  annotations:
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   accessModes:
     - ReadWriteMany
@@ -55,6 +58,7 @@ spec:
     storage: 5Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: app-storage
   local:
     path: /data1/app-storage/
@@ -72,6 +76,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: app-post-pvc
   namespace: app
+  annotations:
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   accessModes:
     - ReadWriteMany
@@ -94,6 +100,7 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: app-storage
   local:
     path: /data1/app-storage/
@@ -111,6 +118,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: app-notification-pvc
   namespace: app
+  annotations:
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   accessModes:
     - ReadWriteMany
