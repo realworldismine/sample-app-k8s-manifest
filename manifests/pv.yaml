@@ -119,5 +119,5 @@ spec:
       storage: 5Gi
   selector:
     matchLabels:
-      name: app-notification-pvc
+      name: app-notification-pv
   storageClassName: app-storage
