@@ -5,7 +5,7 @@ metadata:
   labels:
     app: user-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 5001
@@ -19,7 +19,7 @@ metadata:
   labels:
     app: post-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 5002
@@ -33,7 +33,7 @@ metadata:
   labels:
     app: notification-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 5003
