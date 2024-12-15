@@ -16,7 +16,7 @@ spec:
         app: post
     spec:
       containers:
-      - image: onikaze/sample-app-k8s-post:16
+      - image: onikaze/sample-app-k8s-post:17
         name: post
         volumeMounts:
           - name: app-storage
