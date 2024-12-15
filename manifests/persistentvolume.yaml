@@ -10,10 +10,10 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
+  storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-013f6ea75a273d8f7
+    volumeHandle: fs-0e91fe7c6cec79569
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -31,6 +31,7 @@ spec:
   selector:
     matchLabels:
       name: app-user-pv
+  storageClassName: efs-sc
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -44,10 +45,10 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
+  storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-013f6ea75a273d8f7
+    volumeHandle: fs-0e91fe7c6cec79569
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -65,6 +66,7 @@ spec:
   selector:
     matchLabels:
       name: app-post-pv
+  storageClassName: efs-sc
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -78,10 +80,10 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
+  storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-013f6ea75a273d8f7
+    volumeHandle: fs-0e91fe7c6cec79569
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -99,3 +101,4 @@ spec:
   selector:
     matchLabels:
       name: app-notification-pv
+  storageClassName: efs-sc
