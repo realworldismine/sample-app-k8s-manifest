@@ -28,13 +28,6 @@ spec:
           - name: app-storage
             mountPath: /app/db
             subPath: db
-        resources:
-          requests:
-            cpu: 1
-            memory: 500m
-          limits:
-            cpu: 1
-            memory: 500m
       volumes:
         - name: app-storage
           persistentVolumeClaim:
