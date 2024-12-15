@@ -30,17 +30,3 @@ spec:
           persistentVolumeClaim:
             claimName: app-notification-pvc
 status: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: notification-service
-  labels:
-    app: notification-service
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 5003
-  selector:
-    app: notification
