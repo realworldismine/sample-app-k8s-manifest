@@ -12,14 +12,14 @@ spec:
   rules:
   - http:
       paths:
-      - path: /user(/|$)(.*)
+      - path: /users
         pathType: Prefix
         backend:
           service:
             name: user-service
             port:
               number: 80
-      - path: /post(/|$)(.*)
+      - path: /post
         pathType: Prefix
         backend:
           service:
