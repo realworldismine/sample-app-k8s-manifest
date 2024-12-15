@@ -18,9 +18,6 @@ spec:
       containers:
       - image: onikaze/sample-app-k8s-notification:17
         name: notification
-        envFrom:
-        - secretRef:
-            name: smtp-info
         volumeMounts:
           - name: app-storage
             mountPath: /app/log
