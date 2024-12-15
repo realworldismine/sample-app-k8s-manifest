@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: user
   name: user
@@ -13,14 +12,12 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: user
     spec:
       containers:
       - image: onikaze/sample-app-k8s-user:16
         name: user
-        resources: {}
         volumeMounts:
           - name: app-storage
             mountPath: /app/log
@@ -28,6 +25,13 @@ spec:
           - name: app-storage
             mountPath: /app/db
             subPath: db
+        resources:
+          requests:
+            cpu: 1
+            memory: 500m
+          limits:
+            cpu: 1
+            memory: 500m
       volumes:
         - name: app-storage
           persistentVolumeClaim:
@@ -41,11 +45,10 @@ metadata:
   labels:
     app: user-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 5001
-    nodePort: 30301
   selector:
     app: user
 

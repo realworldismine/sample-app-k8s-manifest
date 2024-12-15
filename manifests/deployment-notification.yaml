@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: notification
   name: notification
@@ -13,14 +12,12 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: notification
     spec:
       containers:
       - image: onikaze/sample-app-k8s-notification:16
         name: notification
-        resources: {}
         envFrom:
         - secretRef:
             name: smtp-info
@@ -31,6 +28,13 @@ spec:
           - name: app-storage
             mountPath: /app/db
             subPath: db
+        resources:
+          requests:
+            cpu: 1
+            memory: 500m
+          limits:
+            cpu: 1
+            memory: 500m
       volumes:
         - name: app-storage
           persistentVolumeClaim:
@@ -44,10 +48,9 @@ metadata:
   labels:
     app: notification-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 5003
-    nodePort: 30303
   selector:
     app: notification
