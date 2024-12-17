@@ -715,10 +715,9 @@ server:
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 80
-    nodePort: 31090
     sessionAffinity: None
     #type: ClusterIP
-    type: NodePort
+    type: LoadBalancer
 
     ## Enable gRPC port on service to allow auto discovery with thanos-querier
     gRPC:
@@ -765,34 +764,34 @@ scrapeConfigFiles: []
 serverFiles:
   ## Alerts configuration
   ## Ref: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
-  alerting_rules.yml: {}
-  groups:
-    - name: Instances
-      rules:
-        - alert: InstanceDown
-          expr: up == 0
-          for: 1m
-          labels:
-            severity: page
-          annotations:
-            description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes.'
-            summary: 'Instance {{ $labels.instance }} down'
-        - alert: HighCPUUsage
-          expr: rate(container_cpu_usage_seconds_total{name=~".+"}[1m]) * 100 > 50
-          for: 1m
-          labels:
-            severity: warning
-          annotations:
-            summary: "High CPU Usage on {{ $labels.name }}"
-            description: "Container {{ $labels.name }} CPU usage is above 50%."
-        - alert: SlowHttpResponse
-          expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m])) > 2.5
-          for: 1m
-          labels:
-            severity: critical
-          annotations:
-            summary: "Slow HTTP Response on {{ $labels.container }}"
-            description: "HTTP response time is above 5 seconds for container {{ $labels.container }}."
+  alerting_rules.yml: 
+    groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 1m
+            labels:
+              severity: page
+            annotations:
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
+          - alert: HighCPUUsage
+            expr: rate(container_cpu_usage_seconds_total{name=~".+"}[1m]) * 100 > 50
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU Usage on {{ $labels.name }}"
+              description: "Container {{ $labels.name }} CPU usage is above 50%."
+          - alert: SlowHttpResponse
+            expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m])) > 2.5
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Slow HTTP Response on {{ $labels.container }}"
+              description: "HTTP response time is above 5 seconds for container {{ $labels.container }}."
 
   ## DEPRECATED DEFAULT VALUE, unless explicitly naming your files, please use alerting_rules.yml
   alerts: {}
@@ -1223,10 +1222,28 @@ serverFiles:
             action: replace
             target_label: node
 
+
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
-extraScrapeConfigs: ""
+extraScrapeConfigs: |
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['user-service.app.svc.cluster.local:80']
+        labels:
+            container: 'user-service'
+
+  - job_name: 'post-service'
+    static_configs:
+      - targets: ['post-service.app.svc.cluster.local:80']
+        labels:
+            container: 'post-service'
+
+  - job_name: 'notification-service'
+    static_configs:
+      - targets: ['notification-service.app.svc.cluster.local:80']
+        labels:
+            container: 'notification-service'
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
   #   params:
@@ -1312,6 +1329,8 @@ kube-state-metrics:
   ## If false, kube-state-metrics sub-chart will not be installed
   ##
   enabled: true
+  metricLabelsAllowList:
+    - pods=[*]
 
 ## prometheus-node-exporter sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-node-exporter
@@ -1338,3 +1357,34 @@ prometheus-pushgateway:
   # Optional service annotations
   serviceAnnotations:
     prometheus.io/probe: pushgateway
+
+additionalPrometheusRulesMap:
+  rule-name:
+    groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 1m
+            labels:
+              severity: page
+            annotations:
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
+          - alert: HighCPUUsage
+            expr: rate(container_cpu_usage_seconds_total{name=~".+"}[1m]) * 100 > 50
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU Usage on {{ $labels.name }}"
+              description: "Container {{ $labels.name }} CPU usage is above 50%."
+          - alert: SlowHttpResponse
+            expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m])) > 2.5
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Slow HTTP Response on {{ $labels.container }}"
+              description: "HTTP response time is above 5 seconds for container {{ $labels.container }}."
+
